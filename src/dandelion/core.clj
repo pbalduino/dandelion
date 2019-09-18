@@ -1,10 +1,11 @@
 (ns dandelion.core
   (:require [clojure.data.json :as json])
-  (:import (com.amazon.ion.system IonTextWriterBuilder
+  (:import (com.amazon.ion IonValue)
+           (com.amazon.ion.system IonTextWriterBuilder
                                   IonReaderBuilder
                                   IonSystemBuilder)))
 
-(defn ion->json [ion-value]
+(defn ion->json [^IonValue ion-value]
   (let [ion-string (str ion-value)
         sb (StringBuilder.)
         writer (.build (.withJsonDowngrade (IonTextWriterBuilder/json)) sb)
