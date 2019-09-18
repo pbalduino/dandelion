@@ -1,7 +1,6 @@
 (ns dandelion.core-test
   (:require [clojure.test :as t]
-            [cheshire.core :as json]
-            [dandelion.core :refer :all])
+            [dandelion.core :refer [clj->ion ion->clj]])
   (:import (com.amazon.ion IonType)))
 
 (def sample-data {"text" "some text"

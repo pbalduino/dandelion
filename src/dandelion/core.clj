@@ -1,5 +1,5 @@
 (ns dandelion.core
-  (:require [cheshire.core :as json])
+  (:require [clojure.data.json :as json])
   (:import (com.amazon.ion.system IonTextWriterBuilder
                                   IonReaderBuilder
                                   IonSystemBuilder)))
@@ -14,18 +14,16 @@
 
 (defn json->ion [^String json-value]
   (let [system (.build (IonSystemBuilder/standard))
-        output (.newDatagram system)
-        writer (.newWriter system output)
         value  (.singleValue system json-value)]
     (.makeReadOnly value)
     value))
 
 (defn clj->ion [clj-value]
   (-> clj-value
-      json/generate-string
+      json/write-str
       json->ion))
 
 (defn ion->clj [ion-value]
   (-> ion-value
       ion->json
-      json/parse-string))
+      json/read-str))
