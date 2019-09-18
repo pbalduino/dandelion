@@ -1,4 +1,4 @@
-(defproject pbalduino/dandelion "0.0.1-SNAPSHOT"
+(defproject pbalduino/dandelion "0.0.1"
   :description "A Clojure wrapper for Amazon Ion"
   :url "http://github.com/pbalduino/dandelion"
   :license {:name "MIT License"
