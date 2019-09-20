@@ -26,12 +26,12 @@ And because you're now writing something in Clojure (yeah!) and need to interope
 
 ### Lein/Boot
 ```
-[pbalduino/dandelion "0.1.0"]
+[pbalduino/dandelion "0.1.1"]
 ```
 
 ### deps.edn
 ```
-pbalduino/dandelion {:mvn/version "0.1.0"}
+pbalduino/dandelion {:mvn/version "0.1.1"}
 ```
 
 ### Samples
