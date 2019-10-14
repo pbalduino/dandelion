@@ -11,8 +11,9 @@
                         ["snapshots" :clojars]]]
   :dependencies [[org.clojure/data.json "0.2.6"]
                  [com.amazon.ion/ion-java "1.5.0"]]
-  :plugins [[lein-cljfmt "0.6.4"]]
+  :plugins [[lein-cljfmt "0.6.4"]
+            [lein-cloverage "1.1.2"]]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[clj-kondo "RELEASE"]
-                                  [org.clojure/clojure "1.10.0"]]
+                                  [org.clojure/clojure "1.10.1"]]
                    :aliases {"clj-kondo" ["run" "-m" "clj-kondo.main"]}}})

@@ -76,3 +76,6 @@ That's all.
 
 ## Who?
 [Plínio Balduino](https://github.com/pbalduino), software developer and problem solver.
+
+### Contributors (Thank you!)
+* Shayan Fouladi
