@@ -1,6 +1,6 @@
 (ns dandelion.core-test
   (:require [clojure.test :as t]
-            [dandelion.core :refer [clj->ion ion->clj]])
+            [dandelion.core :refer [clj->ion ion->clj clj->ion-binary]])
   (:import (com.amazon.ion IonType)))
 
 (def sample-data {"text" "some text"
@@ -22,4 +22,8 @@
 
   (t/testing "Ion to Clojure"
     (let [ion (clj->ion sample-data)]
-      (t/is (= (ion->clj ion) sample-data)))))
+      (t/is (= (ion->clj ion) sample-data))))
+
+  (t/testing "Ion binary to Clojure"
+    (let [ion-binary (clj->ion-binary sample-data)]
+      (t/is (= (ion->clj ion-binary) sample-data)))))
