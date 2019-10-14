@@ -1,17 +1,18 @@
 (ns dandelion.core
   (:require [clojure.data.json :as json])
-  (:import (com.amazon.ion IonValue)
-           (com.amazon.ion.system IonTextWriterBuilder
-                                  IonReaderBuilder
-                                  IonSystemBuilder)))
+  (:import [com.amazon.ion.system
+            IonBinaryWriterBuilder
+            IonReaderBuilder
+            IonSystemBuilder
+            IonTextWriterBuilder]
+           java.io.ByteArrayOutputStream))
 
 (defn ion->json
-  "Transforms a IonValue to an JSON value serialised as String."
-  [^IonValue ion-value]
-  (let [ion-string (str ion-value)
-        sb (StringBuilder.)
+  "Transforms an IonValue to a JSON value serialised as String."
+  [ion-value]
+  (let [sb (StringBuilder.)
         writer (.build (.withJsonDowngrade (IonTextWriterBuilder/json)) sb)
-        reader (.build (IonReaderBuilder/standard) ion-string)]
+        reader (.build (IonReaderBuilder/standard) ion-value)]
     (.writeValues writer reader)
     (str sb)))
 
@@ -22,6 +23,16 @@
         value  (.singleValue system json-value)]
     (.makeReadOnly value)
     value))
+
+(defn clj->ion-binary
+  "Transforms a Clojure value to a byte array of Ion binary"
+  [clj-value]
+  (with-open [os (ByteArrayOutputStream.)
+              writer (.build (IonBinaryWriterBuilder/standard) os)
+              reader (.build (IonReaderBuilder/standard) (json/write-str clj-value))]
+    (.writeValues writer reader)
+    (.finish writer)
+    (.toByteArray os)))
 
 (defn clj->ion
   "Transforms a Clojure value, usually a Map to an immutable IonValue."
