@@ -15,5 +15,6 @@
             [lein-cloverage "1.1.2"]]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[clj-kondo "RELEASE"]
-                                  [org.clojure/clojure "1.10.1"]]
+                                  [org.clojure/clojure "1.10.0"]
+                                  [org.clojure/test.check "0.10.0"]]
                    :aliases {"clj-kondo" ["run" "-m" "clj-kondo.main"]}}})

@@ -48,7 +48,9 @@
 
 (defn ion->clj
   "Transforms a IonValue to a Clojure value"
-  [ion-value]
-  (-> ion-value
-      ion->json
-      json/read-str))
+  ([ion-value]
+   (ion->clj ion-value false))
+  ([ion-value keywordize?]
+   (-> ion-value
+       ion->json
+       (json/read-str :key-fn (if keywordize? keyword identity)))))
