@@ -7,6 +7,11 @@
             IonTextWriterBuilder]
            java.io.ByteArrayOutputStream))
 
+(defn- preserve-ns [key]
+  (if (keyword? key)
+    (if-let [namespace (namespace key)] (str namespace "/" (name key)) (name key))
+    (str key)))
+
 (defn ion->json
   "Transforms an IonValue to a JSON value serialised as String."
   [ion-value]
@@ -38,7 +43,7 @@
   "Transforms a Clojure value, usually a Map to an immutable IonValue."
   [clj-value]
   (-> clj-value
-      json/write-str
+      (json/write-str :key-fn preserve-ns)
       json->ion))
 
 (defn ion->clj
