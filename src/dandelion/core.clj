@@ -29,22 +29,22 @@
     (.makeReadOnly value)
     value))
 
-(defn clj->ion-binary
-  "Transforms a Clojure value to a byte array of Ion binary"
-  [clj-value]
-  (with-open [os (ByteArrayOutputStream.)
-              writer (.build (IonBinaryWriterBuilder/standard) os)
-              reader (.build (IonReaderBuilder/standard) (json/write-str clj-value))]
-    (.writeValues writer reader)
-    (.finish writer)
-    (.toByteArray os)))
-
 (defn clj->ion
   "Transforms a Clojure value, usually a Map to an immutable IonValue."
   [clj-value]
   (-> clj-value
       (json/write-str :key-fn preserve-ns)
       json->ion))
+
+(defn clj->ion-binary
+  "Transforms a Clojure value to a byte array of Ion binary"
+  [clj-value]
+  (let [ion-value (clj->ion clj-value)]
+    (with-open [os (ByteArrayOutputStream.)
+                writer (.build (IonBinaryWriterBuilder/standard) os)]
+      (.writeTo ion-value writer)
+      (.finish writer)
+      (.toByteArray os))))
 
 (defn ion->clj
   "Transforms a IonValue to a Clojure value"
