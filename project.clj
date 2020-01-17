@@ -1,4 +1,4 @@
-(defproject pbalduino/dandelion "0.1.2"
+(defproject pbalduino/dandelion "0.1.3"
   :description "A Clojure wrapper for Amazon Ion"
   :url "http://github.com/pbalduino/dandelion"
   :license {:name "MIT License"
@@ -11,7 +11,7 @@
                         ["snapshots" :clojars]]]
   :dependencies [[org.clojure/data.json "0.2.6"]
                  [com.amazon.ion/ion-java "1.5.0"]]
-  :plugins [[lein-cljfmt "0.6.4"]
+  :plugins [[lein-cljfmt "0.6.6"]
             [lein-cloverage "1.1.2"]]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[clj-kondo "RELEASE"]
